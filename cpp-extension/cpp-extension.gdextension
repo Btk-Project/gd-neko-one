@@ -1,0 +1,23 @@
+[configuration]
+
+entry_symbol = "example_library_init"
+compatibility_minimum = "4.3"
+
+[libraries]
+
+macos.debug = "res://cpp-extension/bin/"
+macos.release = "res://cpp-extension/bin/"
+windows.debug.x86_32 = "res://cpp-extension/bin/"
+windows.release.x86_32 = "res://cpp-extension/bin/"
+windows.debug.x86_64 = "res://cpp-extension/bin/libgd-neko-one.windows.release.x64.dll"
+windows.release.x86_64 = "res://cpp-extension/bin/libgd-neko-one.windows.debug.x64.dll"
+linux.debug.x86_64 = "res://cpp-extension/bin/"
+linux.release.x86_64 = "res://cpp-extension/bin/"
+linux.debug.arm64 = "res://cpp-extension/bin/"
+linux.release.arm64 = "res://cpp-extension/bin/"
+linux.debug.rv64 = "res://cpp-extension/bin/"
+linux.release.rv64 = "res://cpp-extension/bin/"
+android.debug.x86_64 = "res://cpp-extension/bin/"
+android.release.x86_64 = "res://cpp-extension/bin/"
+android.debug.arm64 = "res://cpp-extension/bin/"
+android.release.arm64 = "res://cpp-extension/bin/"
