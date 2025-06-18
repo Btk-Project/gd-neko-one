@@ -12,3 +12,5 @@ build/
 # vscode
 .vscode/
 cpp-extension/bin/
+*.uid
+*.import

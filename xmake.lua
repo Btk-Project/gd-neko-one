@@ -5,11 +5,16 @@ set_version("0.0.1")
 set_languages("c++20")
 
 add_requires("godotcpp4")
+if is_plat("windows") then
+    set_runtimes("MD")
+end
 
 target("gd-neko-one")
     set_kind("shared")
     add_packages("godotcpp4")
     add_files("src/*.cpp")
+    add_files("src/storage_system/*.cpp")
+    add_files("src/nodes/*.cpp")
     after_build(function (target) 
         import("core.project.config")
         local target_file = target:targetfile();

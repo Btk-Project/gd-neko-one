@@ -1,12 +1,408 @@
 [gd_scene load_steps=2 format=3 uid="uid://croqie4oetykl"]
 
-[ext_resource type="Texture2D" uid="uid://c27exa2ic3bjm" path="res://icon.svg" id="1_epwyq"]
+[ext_resource type="Texture2D" uid="uid://kpbr8vhgw0s8" path="res://resources/Winter_Birds.png" id="1_xwhhh"]
 
 [node name="Node2D" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-342.0]
 
-[node name="Player" type="Player" parent="."]
-timePassed = 226.823
-amplitude = 20.0
-speed = 2.0
-position = Vector2(39.0215, 31.7551)
-texture = ExtResource("1_epwyq")
+[node name="BoidManagerNode" type="BoidManagerNode" parent="."]
+
+[node name="BoidSprite2D6" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(-0.882869, 1.48347)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_seekTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(-63.0554, 95.1592)
+rotation = 0.536836
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D5" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(3.41772, -0.534657)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(81.3099, 122.151)
+rotation = -1.72598
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D4" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(2.34446, 0.734198)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(72.3537, 110.992)
+rotation = -1.26731
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D3" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.50355, 0.673191)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(75.4808, 113.565)
+rotation = -1.14983
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D2" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.66875, -0.551309)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(82.9677, 101.007)
+rotation = -1.88988
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D9" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(2.26185, -0.329261)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(74.7259, 100.913)
+rotation = -1.71535
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D8" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(-1.03219, -1.39757)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+position = Vector2(90.9949, 139.381)
+rotation = 2.50545
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D7" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(0.395841, 1.33209)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(80.9872, 105.012)
+rotation = -0.288848
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D10" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(2.35855, 1.28858)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(86.9424, 117.323)
+rotation = -1.07076
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D11" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.16415, -0.164835)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(79.1007, 97.1222)
+rotation = -1.71145
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D12" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.18614, -0.908775)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(72.5698, 107.771)
+rotation = -2.22456
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D13" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(-1.00505, 1.44027)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_seekTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(-59.723, 74.6918)
+rotation = 0.609263
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D14" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.97451, -0.781586)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(69.6883, 121.007)
+rotation = -1.94771
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D15" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(-1.58957, 0.469089)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_seekTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(-58.4765, 88.0709)
+rotation = 1.28384
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D16" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(1.10101, -0.872756)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(75.6122, 107.043)
+rotation = -2.24106
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D17" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(2.46674, -0.0309803)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(84.1947, 111.092)
+rotation = -1.58335
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(2.53036, 1.1538)
+base_maxSpeed = 10.0
+base_maxForce = 0.5
+base_separationRadius = 10.0
+base_separationWeight = 0.5
+base_alignmentRadius = 20.0
+base_cohesionRadius = 30.0
+advance_arriveTarget = true
+advance_wanderAngleChangeLimit = 0.1
+advance_fleeFromPredator = true
+advance_fleeFromPredatorWeight = 10.0
+advance_fleeFromPredatorDistance = 50.0
+position = Vector2(79.6968, 123.888)
+rotation = -1.14298
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="arrive_node" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(0, 0.0333334)
+base_flocking = false
+system_gameTimeFrameRate = 1.0
+position = Vector2(71, 93.0529)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="predatorBoid" type="BoidSprite2D" parent="BoidManagerNode"]
+base_flocking = false
+position = Vector2(-1, 7)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 1
+
+[node name="seek_node" type="BoidSprite2D" parent="BoidManagerNode"]
+velocity = Vector2(0, 0.0333334)
+base_maxSpeed = 10.0
+base_maxForce = 0.3
+base_flocking = false
+advance_wanderRadius = 3.0
+advance_wanderDistance = 3.0
+advance_wanderAngleChangeLimit = 1.0
+advance_fleeFromPredatorDistance = 50.0
+system_gameTimeFrameRate = 1.0
+position = Vector2(-57, 95.071)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5

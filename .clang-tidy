@@ -1,55 +1,94 @@
----
-Checks:                       'readability-*,-readability-redundant-member-init,-readability-redundant-access-specifiers,-readability-magic-numbers'
+# .clang-tidy
+Checks: '*, -readability-magic-numbers'
+CheckOptions:
+  # 将 IgnoreFloatingPoint 设置为 true，不再警告浮点魔术数字
+  - key: readability-magic-numbers.IgnoreFloatingPoint
+    value: 'true'
+  # 你还可以忽略特定的整数，例如 0, 1, -1
+  # - key: readability-magic-numbers.IgnoreIntegers
+  #   value: '0;1;-1'
+# 禁用一些与 Godot 风格冲突或过于主观的检查
 WarningsAsErrors:             ''
 HeaderFileExtensions:         ['', 'h','hh','hpp','hxx']
 ImplementationFileExtensions: ['c','cc','cpp','cxx']
-HeaderFilterRegex:            ''
-FormatStyle:                  none
+HeaderFilterRegex:            '' # 根据你的项目结构设置，例如 '^(src|include)/'
+FormatStyle:                  none # 保持为 none，格式化由 clang-format 处理
 InheritParentConfig:          true
-User:                         admin
+User:                         admin # 或你的用户名
 CheckOptions:
-  readability-identifier-length.MinimumParameterNameLength: '2'
-  readability-identifier-length.MinimumVariableNameLength:  '2'
-  # 命名规范
-  ##  类、结构体
-  ### 名: CamelCase
-  readability-identifier-naming.ClassCase:  CamelCase
-  readability-identifier-naming.StructCase: CamelCase
-  ### 成员变量名: camelBack（公有）、_camelBack（保护、私有）
-  readability-identifier-naming.PublicMemberCase:       camelBack
-  readability-identifier-naming.ProtectedMemberCase:    CamelCase
-  readability-identifier-naming.ProtectedMemberPrefix:  m
-  readability-identifier-naming.PrivateMemberCase:      CamelCase
-  readability-identifier-naming.PrivateMemberPrefix:    m
-  ### 成员函数名: camelBack（公有）、_camelBack（保护、私有）
-  readability-identifier-naming.PublicMethodCase:       camelBack
-  readability-identifier-naming.ProtectedMethodCase:    camelBack
-  readability-identifier-naming.ProtectedMethodPrefix:  _
-  readability-identifier-naming.PrivateMethodCase:      camelBack
-  readability-identifier-naming.PrivateMethodPrefix:    _
-  ##  枚举
-  ### 名: CamelCase
-  readability-identifier-naming.EnumCase: CamelCase
-  ### 枚举值: eCamelCase
-  readability-identifier-naming.EnumConstantCase:   CamelCase
-  readability-identifier-naming.EnumConstantPrefix: ''
-  ##  函数
-  readability-identifier-naming.FunctionCase: lower_case
-  ##  参数
-  readability-identifier-naming.ParameterCase:  camelBack
-  ##  变量
-  ### 默认: camelBack
-  readability-identifier-naming.VariableCase: camelBack
-  ### 局部变量: camelBack
-  readability-identifier-naming.LocalVariableCase: camelBack
-  ### 全局变量: gCamelCase
-  readability-identifier-naming.GlobalVariableCase:   CamelCase
-  readability-identifier-naming.GlobalVariablePrefix: g
-  ### 静态变量: kCamelCase
-  readability-identifier-naming.StaticVariableCase:   CamelCase
-  readability-identifier-naming.StaticVariablePrefix: k
-  ### 编译期变量: CamelCase
-  readability-identifier-naming.ConstexprVariableCase:    CamelCase
-  readability-identifier-naming.ConstexprVariablePrefix:  ''
+  # 通用可读性
+  readability-identifier-length.MinimumParameterNameLength: '2' # 保持
+  readability-identifier-length.MinimumVariableNameLength:  '2' # 保持
+  readability-braces-around-statements: true
+  readability-simplify-boolean-expr: true
+  readability-redundant-string-cstr: true
 
-SystemHeaders:   false
+  # 命名规范 (主要调整部分)
+  ## 类、结构体、联合、枚举类型名: PascalCase
+  readability-identifier-naming.ClassCase: PascalCase
+  readability-identifier-naming.StructCase: PascalCase
+  readability-identifier-naming.UnionCase: PascalCase # 添加联合类型
+  readability-identifier-naming.EnumCase: PascalCase
+
+  ## 成员变量名: snake_case (Godot 通常不区分公有/保护/私有前缀)
+  readability-identifier-naming.PublicMemberCase:       snake_case
+  readability-identifier-naming.ProtectedMemberCase:    snake_case
+  # readability-identifier-naming.ProtectedMemberPrefix:  '' # 通常不使用特定前缀，但如果团队有约定可以保留
+  readability-identifier-naming.PrivateMemberCase:      snake_case
+  # readability-identifier-naming.PrivateMemberPrefix:    '' # 通常不使用特定前缀
+
+  ## 成员函数名 (方法): snake_case
+  ## 公有方法: snake_case
+  readability-identifier-naming.PublicMethodCase:       snake_case
+  ## 保护/私有方法: _snake_case (以单个下划线开头)
+  readability-identifier-naming.ProtectedMethodCase:    snake_case
+  readability-identifier-naming.ProtectedMethodPrefix:  '_'
+  readability-identifier-naming.PrivateMethodCase:      snake_case
+  readability-identifier-naming.PrivateMethodPrefix:    '_'
+  ## 虚方法 (Godot 约定): _snake_case (即使是公有的)
+  readability-identifier-naming.VirtualMethodCase:      snake_case # 基础是 snake_case
+  readability-identifier-naming.VirtualMethodPrefix:    '_'        # 通常以 _ 开头
+
+  ## 枚举常量: UPPER_SNAKE_CASE (或 PascalCase 但首字母大写，Godot 倾向于前者)
+  readability-identifier-naming.EnumConstantCase:   UPPER_SNAKE_CASE # 或 CONSTANT_CASE
+  # readability-identifier-naming.EnumConstantPrefix: 'ENUM_PREFIX_' # 如果有特定枚举前缀约定
+
+  ## 全局函数名: snake_case
+  readability-identifier-naming.FunctionCase: snake_case # 保持
+
+  ## 参数名: snake_case (通常以 p_ 开头作为提示，但 clang-tidy 难以强制)
+  readability-identifier-naming.ParameterCase:  snake_case
+  # readability-identifier-naming.ParameterPrefix: 'p_' # clang-tidy 可能不支持直接的前缀规则，更多是代码审查
+
+  ## 变量名
+  ### 默认/局部变量: snake_case
+  readability-identifier-naming.VariableCase: snake_case
+  readability-identifier-naming.LocalVariableCase: snake_case
+
+  ### 全局变量: g_snake_case (或 _g_snake_case)
+  readability-identifier-naming.GlobalVariableCase:   snake_case
+  readability-identifier-naming.GlobalVariablePrefix: 'g_' # 或 '_g_'
+
+  ### 静态类成员变量: s_snake_case (或 _s_snake_case)
+  readability-identifier-naming.ClassStaticVariableCase:   snake_case
+  readability-identifier-naming.ClassStaticVariablePrefix: 's_' # 或 '_s_'
+  ### 文件级静态变量 (匿名命名空间或 static 修饰): snake_case (可能也用 s_ 前缀)
+  readability-identifier-naming.GlobalStaticVariableCase: snake_case # (Clang-tidy 可能没有这么细的区分)
+  # readability-identifier-naming.GlobalStaticVariablePrefix: 's_'
+
+  ### 常量/编译期常量: UPPER_SNAKE_CASE (或 PascalCase，Godot 倾向于前者)
+  readability-identifier-naming.ConstexprVariableCase:    UPPER_SNAKE_CASE # 或 CONSTANT_CASE
+  # readability-identifier-naming.ConstexprVariablePrefix:  ''
+
+  # 其他 Godot 风格相关的调整 (可选，但推荐)
+  cppcoreguidelines-owning-memory.LegacyResourceManagementInterfaces: false # Godot 使用自己的内存管理
+  modernize-use-trailing-return-type: false # Godot 通常不使用尾置返回类型
+  modernize-use-nullptr: true # 推荐使用 nullptr
+  modernize-use-equals-default: true
+  modernize-use-equals-delete: true
+  google-build-using-namespace: false # 避免 using namespace in headers
+  # readability-magic-numbers 仍然被你的原始 Checks 禁用，如果需要可以启用并配置
+  # -readability-redundant-member-init 禁用，这在某些情况下可能有用，但 Godot 风格中不常见显式初始化为默认值再在构造函数中覆盖
+  # -readability-redundant-access-specifiers 禁用，通常还好
+
+SystemHeaders:   false # 保持
