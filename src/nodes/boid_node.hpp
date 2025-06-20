@@ -119,6 +119,7 @@ public:
     auto gameTimeFrameRate() const -> float { return mGameTimeFrameRate; }
     void setGameTimeFrameRate(float frameRate) { mGameTimeFrameRate = frameRate; }
     auto updateManager(BoidManagerNode* manager) -> void { mBoidManager = manager; }
+    void _draw() override;
 
 protected:
     void _process(double delta) override;
@@ -318,8 +319,11 @@ auto BoidSprite2D::_flocking(const std::vector<U*>& neighbors) -> Vector2 {
         auto distance = std::fabs(this->get_position().distance_to(other->get_position()));
         if (distance > 0) {
             if (distance < mSeparationRadius) {
-                separation += (this->get_position() - other->get_position()).normalized() *
-                              (mMaxSpeed * mSeparationRadius / (mSeparationRadius - distance));
+                Vector2 dic = (this->get_position() - other->get_position());
+                if (dic.is_zero_approx()) {
+                    dic = Vector2(1, 0); // 避免除以零
+                }
+                separation += dic.normalized() * (mMaxSpeed * mSeparationRadius / (mSeparationRadius - distance));
                 sepTotal++;
             }
             if (distance < mAlignmentRadius) {

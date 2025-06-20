@@ -18,12 +18,11 @@ auto BoidManagerNode::insert(Node2D* node, int boid_type) -> void {
         }
     }
     if (auto* boid = Node::cast_to<BoidSprite2D>(node); boid) {
-        boid->setAcceleration(Vector2{0, 1});
-        mBoidNodes[node]         = boid_type;
-        mBoidDataHash[boid_type] = node->get_name().hash();
         boid->updateManager(this);
         boid->connect("position_changed", Callable(this, "_on_position_changed"));
     }
+    mBoidNodes[node]         = boid_type;
+    mBoidDataHash[boid_type] = node->get_name().hash();
 }
 
 auto BoidManagerNode::remove(Node2D* node) -> void {
@@ -42,8 +41,7 @@ auto BoidManagerNode::on_child_entered_tree(Node2D* node) -> void { insert(node,
 auto BoidManagerNode::on_child_exiting_tree(Node2D* node) -> void { remove(node); }
 
 auto BoidManagerNode::_on_position_changed(Object* node, Vector2 position) -> void {
-    if (auto item = mBoidNodes.find(Node::cast_to<Node2D>(node)); item != mBoidNodes.end()) {
-        print_line("position changed: " + String(Variant(item->second)));
+    if (auto item = mBoidNodes.find(node); item != mBoidNodes.end()) {
         mBoidDataHash[item->second] = (uint64_t)rand() * rand() * rand();
     }
 }
@@ -60,7 +58,7 @@ auto BoidManagerNode::get_seek_target(Node2D* self) -> Node2D* {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)Seek) && node != self) {
             // TODO：找到最近的目标返回？
-            return node;
+            return static_cast<Node2D*>(node);
         }
     }
     return nullptr;
@@ -71,7 +69,7 @@ auto BoidManagerNode::get_arrive_target(Node2D* self) -> Node2D* {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Arrive) && node != self) {
             // TODO：找到最近的目标返回？
-            return node;
+            return static_cast<Node2D*>(node);
         }
     }
     return nullptr;
@@ -81,9 +79,9 @@ auto BoidManagerNode::get_arrive_target(Node2D* self) -> Node2D* {
 auto BoidManagerNode::get_pursuit_target(Node2D* self, int distance) -> Node2D* {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Pursuit) && node != self &&
-            node->get_position().distance_to(self->get_position()) < distance) {
+            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
             // TODO：找到最近的目标返回？
-            return node;
+            return static_cast<Node2D*>(node);
         }
     }
     return nullptr;
@@ -94,9 +92,9 @@ auto BoidManagerNode::get_nearby_predator(Node2D* self, int distance) -> Array {
     Array result;
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Predator) && node != self &&
-            (node->get_position() - self->get_position()).length() < distance) {
+            (static_cast<Node2D*>(node)->get_position() - self->get_position()).length() < distance) {
             // TODO：找到最近的目标返回？
-            result.append(node);
+            result.append(static_cast<Node2D*>(node));
         }
     }
     return result;
@@ -106,9 +104,9 @@ auto BoidManagerNode::get_nearby_predator(Node2D* self, int distance) -> Array {
 auto BoidManagerNode::get_avoid_target(Node2D* self, int distance) -> Node2D* {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Avoid) && node != self &&
-            (node->get_position() - self->get_position()).length() < distance) {
+            (static_cast<Node2D*>(node)->get_position() - self->get_position()).length() < distance) {
             // TODO：找到最近的目标返回？
-            return node;
+            return static_cast<Node2D*>(node);
         }
     }
     return nullptr;
@@ -119,9 +117,9 @@ auto BoidManagerNode::get_nearby_obstacles(Node2D* self, int distance) -> Array 
     Array result;
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Obstacle) && node != self &&
-            node->get_position().distance_to(self->get_position()) < distance) {
+            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
             // TODO：找到最近的目标返回？
-            result.append(node->get_position());
+            result.append(static_cast<Node2D*>(node)->get_position());
         }
     }
     return result;
@@ -130,9 +128,9 @@ auto BoidManagerNode::get_nearby_obstacles(Node2D* self, int distance) -> Array 
 auto BoidManagerNode::get_evade_target(Node2D* self, int distance) -> Node2D* {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Evade) && node != self &&
-            node->get_position().distance_to(self->get_position()) < distance) {
+            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
             // TODO：找到最近的目标返回？
-            return node;
+            return static_cast<Node2D*>(node);
         }
     }
     return nullptr;
@@ -144,7 +142,7 @@ auto BoidManagerNode::get_following_path(Node2D* self) -> Array {
     for (auto& [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Following) && node != self) {
             // TODO：找到最近的目标返回？
-            result.append(node->get_position());
+            result.append(static_cast<Node2D*>(node)->get_position());
         }
     }
 
@@ -156,8 +154,8 @@ auto BoidManagerNode::get_nearby_same_cluster_nodes(Node2D* self, int distance) 
     Array result;
     for (auto [node, type] : mBoidNodes) {
         if (type == std::countr_zero((uint32_t)DataType::Cluster) && node != self &&
-            node->get_position().distance_to(self->get_position()) < distance) {
-            result.append(node);
+            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
+            result.append(static_cast<Node2D*>(node));
         }
     }
     return result;
@@ -181,5 +179,7 @@ void BoidManagerNode::_ready() {
 auto BoidManagerNode::_bind_methods() -> void {
     ClassDB::bind_method(D_METHOD("on_child_entered_tree", "child"), &BoidManagerNode::on_child_entered_tree);
     ClassDB::bind_method(D_METHOD("on_child_exiting_tree", "child"), &BoidManagerNode::on_child_exiting_tree);
+    ClassDB::bind_method(D_METHOD("_on_position_changed", "node", "new_position"),
+                         &BoidManagerNode::_on_position_changed);
 }
 } // namespace godot

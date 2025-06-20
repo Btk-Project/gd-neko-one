@@ -12,6 +12,9 @@ BoidSprite2D::~BoidSprite2D() {}
 
 void BoidSprite2D::_process(double delta) {
     mTimeEmit += delta;
+    if (int(mTimeEmit * 100) % 10 == 0) {
+        queue_redraw();
+    }
     if (mTimeEmit > 1.0) {
         emit_signal("position_changed", this, get_position());
         mTimeEmit = 0.0;
@@ -19,6 +22,42 @@ void BoidSprite2D::_process(double delta) {
 
     // auto steering_force = _avoid_obstacles({Rect2{0, 0, 1001, 1001}}) * 5;
     // mAcceleration += steering_force.limit_length(mMaxForce) / mMass;
+}
+
+void BoidSprite2D::_draw() {
+#if 1 // DEBUG
+    auto position = get_position();
+    draw_dashed_line({0, 0}, {10, 0}, Color("#FF00FF"));
+    for (auto& boid : mNeighborBoids) {
+        draw_dashed_line({0, 0}, to_local(boid->get_position()), Color("#00FF00"));
+    }
+    if (mSeekTargetV != nullptr) {
+        draw_line({0, 0}, to_local(mSeekTargetV->get_position()), Color("#228B22"));
+    }
+    if (mArriveTargetV != nullptr) {
+        draw_line({0, 0}, to_local(mArriveTargetV->get_position()), Color("#6B8E23"));
+    }
+    if (mPursuitTargetV != nullptr) {
+        draw_line({0, 0}, to_local(mPursuitTargetV->get_position()), Color("#FFD700"));
+    }
+    if (mEvadeTargetV != nullptr) {
+        draw_line({0, 0}, to_local(mEvadeTargetV->get_position()), Color("#FF8000"));
+    }
+    if (_check_behavior_flag(Wander)) {
+        draw_arc({0, 0}, mWanderRadius, mWanderAngle - mWanderAngleChangeLimit, mWanderAngle + mWanderAngleChangeLimit,
+                 10, Color("#FF00FF"));
+    }
+    for (auto& obstacle : mObstacleRects) {
+        draw_dashed_line({0, 0}, to_local(obstacle.get_center()), Color("#FF0000"));
+    }
+    for (auto& obstacle : mObstacleCircles) {
+        draw_dashed_line({0, 0}, to_local(obstacle.center), Color("#FF0000"));
+    }
+    for (auto& predator : mPredatorV) {
+        draw_line({0, 0}, to_local(predator->get_position()), Color("#B0171F"));
+    }
+#endif
+    return Sprite2D::_draw();
 }
 
 void BoidSprite2D::_physics_process(double delta) {

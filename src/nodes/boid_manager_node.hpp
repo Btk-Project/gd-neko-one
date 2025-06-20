@@ -72,6 +72,6 @@ protected:
 
 private:
     std::array<uint64_t, 33> mBoidDataHash = {0};
-    std::map<Node2D*, int> mBoidNodes;
+    std::map<void*, int> mBoidNodes;
 };
 } // namespace godot
