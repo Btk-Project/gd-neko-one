@@ -21,7 +21,9 @@ auto BoidManagerNode::insert(Node2D* node, int boid_type) -> void {
         boid->updateManager(this);
         boid->connect("position_changed", Callable(this, "_on_position_changed"));
     }
-    mBoidNodes[node]         = boid_type;
+    auto ret         = mGrid.add(node, node->get_position());
+    mBoidNodes[node] = std::make_pair(ret, boid_type);
+    mBoidClusters[boid_type].insert(node);
     mBoidDataHash[boid_type] = node->get_name().hash();
 }
 
@@ -31,7 +33,9 @@ auto BoidManagerNode::remove(Node2D* node) -> void {
             boid->updateManager(nullptr);
             boid->disconnect("position_changed", Callable(this, "_on_position_changed"));
         }
-        mBoidDataHash[item->second] = (uint64_t)rand() * rand() * rand();
+        mGrid.remove(item->second.first);
+        mBoidClusters[item->second.second].erase(node);
+        mBoidDataHash[item->second.second] = (uint64_t)rand() * rand() * rand();
         mBoidNodes.erase(item);
     }
 }
@@ -42,8 +46,45 @@ auto BoidManagerNode::on_child_exiting_tree(Node2D* node) -> void { remove(node)
 
 auto BoidManagerNode::_on_position_changed(Object* node, Vector2 position) -> void {
     if (auto item = mBoidNodes.find(node); item != mBoidNodes.end()) {
-        mBoidDataHash[item->second] = (uint64_t)rand() * rand() * rand();
+        if (mGrid.get_cell(position) != item->second.first.cell) {
+            mGrid.remove(item->second.first);
+            item->second.first                 = mGrid.add(Node2D::cast_to<Node2D>(node), position);
+            mBoidDataHash[item->second.second] = (uint64_t)rand() * rand() * rand();
+        }
     }
+}
+
+auto BoidManagerNode::_find_closest_node(Node2D* self, DataType type) -> Node2D* {
+    if (self == nullptr) {
+        return nullptr;
+    }
+    int min_dist = std::numeric_limits<int>::max();
+    Node2D* ret  = nullptr;
+    auto pos     = self->get_global_position();
+    for (auto& node : mBoidClusters[std::countr_zero((uint32_t)type)]) {
+        if (auto dist = static_cast<Node2D*>(node)->get_global_position().distance_to(pos); dist < min_dist) {
+            min_dist = dist;
+            ret      = static_cast<Node2D*>(node);
+            if (min_dist == 0) {
+                return static_cast<Node2D*>(node);
+            }
+        }
+    }
+    return ret;
+}
+
+auto BoidManagerNode::_find_closest_nodes(Node2D* self, DataType type, int distance) -> Array {
+    if (self == nullptr) {
+        return Array{};
+    }
+    Array ret;
+    auto pos = self->get_global_position();
+    for (auto& node : mBoidClusters[std::countr_zero((uint32_t)type)]) {
+        if (node != self && static_cast<Node2D*>(node)->get_global_position().distance_to(pos) <= distance) {
+            ret.append(static_cast<Node2D*>(node));
+        }
+    }
+    return ret;
 }
 
 auto BoidManagerNode::data_hash(DataType type) -> uint64_t {
@@ -54,111 +95,55 @@ auto BoidManagerNode::data_hash(DataType type) -> uint64_t {
 }
 
 // 获取指定节点需要寻找的目标位置
-auto BoidManagerNode::get_seek_target(Node2D* self) -> Node2D* {
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)Seek) && node != self) {
-            // TODO：找到最近的目标返回？
-            return static_cast<Node2D*>(node);
-        }
-    }
-    return nullptr;
-}
+auto BoidManagerNode::get_seek_target(Node2D* self) -> Node2D* { return _find_closest_node(self, Seek); }
 
 // 获取指定节点需要到达的目标位置
-auto BoidManagerNode::get_arrive_target(Node2D* self) -> Node2D* {
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Arrive) && node != self) {
-            // TODO：找到最近的目标返回？
-            return static_cast<Node2D*>(node);
-        }
-    }
-    return nullptr;
-}
+auto BoidManagerNode::get_arrive_target(Node2D* self) -> Node2D* { return _find_closest_node(self, Arrive); }
 
 // 获取指定节点需要追逐的目标位置
 auto BoidManagerNode::get_pursuit_target(Node2D* self, int distance) -> Node2D* {
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Pursuit) && node != self &&
-            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
-            // TODO：找到最近的目标返回？
-            return static_cast<Node2D*>(node);
-        }
+    auto item = _find_closest_node(self, DataType::Pursuit);
+    if (item != nullptr && item->get_global_position().distance_to(self->get_global_position()) <= distance) {
+        return item;
     }
     return nullptr;
 }
 
 // 获取指定节点附近的捕食者
 auto BoidManagerNode::get_nearby_predator(Node2D* self, int distance) -> Array {
-    Array result;
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Predator) && node != self &&
-            (static_cast<Node2D*>(node)->get_position() - self->get_position()).length() < distance) {
-            // TODO：找到最近的目标返回？
-            result.append(static_cast<Node2D*>(node));
-        }
-    }
-    return result;
+    return _find_closest_nodes(self, DataType::Predator, distance);
 }
 
 // 获取指定节点需要避让的目标位置
 auto BoidManagerNode::get_avoid_target(Node2D* self, int distance) -> Node2D* {
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Avoid) && node != self &&
-            (static_cast<Node2D*>(node)->get_position() - self->get_position()).length() < distance) {
-            // TODO：找到最近的目标返回？
-            return static_cast<Node2D*>(node);
-        }
+    auto item = _find_closest_node(self, DataType::Avoid);
+    if (item != nullptr && item->get_global_position().distance_to(self->get_global_position()) <= distance) {
+        return item;
     }
     return nullptr;
 }
 
 // 获取指定节点附近的障碍物
 auto BoidManagerNode::get_nearby_obstacles(Node2D* self, int distance) -> Array {
-    Array result;
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Obstacle) && node != self &&
-            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
-            // TODO：找到最近的目标返回？
-            result.append(static_cast<Node2D*>(node)->get_position());
-        }
-    }
-    return result;
+    return _find_closest_nodes(self, DataType::Obstacle, distance);
 }
 
 auto BoidManagerNode::get_evade_target(Node2D* self, int distance) -> Node2D* {
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Evade) && node != self &&
-            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
-            // TODO：找到最近的目标返回？
-            return static_cast<Node2D*>(node);
-        }
+    auto item = _find_closest_node(self, DataType::Evade);
+    if (item != nullptr && item->get_global_position().distance_to(self->get_global_position()) <= distance) {
+        return item;
     }
     return nullptr;
 }
 
 // 获取需要跟随的路径
 auto BoidManagerNode::get_following_path(Node2D* self) -> Array {
-    Array result;
-    for (auto& [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Following) && node != self) {
-            // TODO：找到最近的目标返回？
-            result.append(static_cast<Node2D*>(node)->get_position());
-        }
-    }
-
-    return result;
+    return _find_closest_nodes(self, DataType::Following, 10000);
 }
 
 // 获取附近同集群的节点
 auto BoidManagerNode::get_nearby_same_cluster_nodes(Node2D* self, int distance) -> Array {
-    Array result;
-    for (auto [node, type] : mBoidNodes) {
-        if (type == std::countr_zero((uint32_t)DataType::Cluster) && node != self &&
-            static_cast<Node2D*>(node)->get_position().distance_to(self->get_position()) < distance) {
-            result.append(static_cast<Node2D*>(node));
-        }
-    }
-    return result;
+    return _find_closest_nodes(self, DataType::Cluster, distance);
 }
 
 void BoidManagerNode::_ready() {

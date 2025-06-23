@@ -261,7 +261,7 @@ private:
 
     // arrive: 抵达
     float mArriveWeight        = 1.0;  // 抵达目标规则权重
-    float mArriveSlowingRadius = 10.0; // 抵达目标减速半径
+    float mArriveSlowingRadius = 30.0; // 抵达目标减速半径
     Node2D* mArriveTargetV     = nullptr;
     uint64_t mArriveTargetHash = 0;
 

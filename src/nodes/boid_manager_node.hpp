@@ -1,9 +1,10 @@
 #pragma once
 
 #include <map>
-#include <optional>
 
 #include <godot_cpp/classes/node2d.hpp>
+
+#include "../algorithm/uniform_grid.hpp"
 
 namespace godot {
 class BoidManagerNode : public Node {
@@ -69,9 +70,13 @@ protected:
     void _ready() override;
     static auto _bind_methods() -> void;
     auto _on_position_changed(Object* node, Vector2 position) -> void;
+    auto _find_closest_node(Node2D* self, DataType type) -> Node2D*;
+    auto _find_closest_nodes(Node2D* self, DataType type, int distance) -> Array;
 
 private:
     std::array<uint64_t, 33> mBoidDataHash = {0};
-    std::map<void*, int> mBoidNodes;
+    std::unordered_map<void*, std::pair<UniformGrid::UniformGridNode, int>> mBoidNodes;
+    std::array<std::unordered_set<void*>, 33> mBoidClusters;
+    UniformGrid mGrid;
 };
 } // namespace godot

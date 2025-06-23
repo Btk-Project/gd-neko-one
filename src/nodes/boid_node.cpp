@@ -17,7 +17,10 @@ void BoidSprite2D::_process(double delta) {
     }
     if (mTimeEmit > 1.0) {
         emit_signal("position_changed", this, get_position());
-        mTimeEmit = 0.0;
+        mTimeEmit          = 0.0;
+        mPursuitTargetHash = 0;
+        mEvadeTargetHash   = 0;
+        mPredatorHash = 0;
     }
 
     // auto steering_force = _avoid_obstacles({Rect2{0, 0, 1001, 1001}}) * 5;
@@ -44,8 +47,8 @@ void BoidSprite2D::_draw() {
         draw_line({0, 0}, to_local(mEvadeTargetV->get_position()), Color("#FF8000"));
     }
     if (_check_behavior_flag(Wander)) {
-        draw_arc({0, 0}, mWanderRadius, mWanderAngle - mWanderAngleChangeLimit, mWanderAngle + mWanderAngleChangeLimit,
-                 10, Color("#FF00FF"));
+        draw_arc({0, 0}, mWanderRadius, mWanderAngle - Math::deg_to_rad(mWanderAngleChangeLimit),
+                 mWanderAngle + Math::deg_to_rad(mWanderAngleChangeLimit), 10, Color("#FF00FF"));
     }
     for (auto& obstacle : mObstacleRects) {
         draw_dashed_line({0, 0}, to_local(obstacle.get_center()), Color("#FF0000"));
@@ -115,7 +118,7 @@ auto BoidSprite2D::_apply_rules() -> void {
     if (_check_behavior_flag(Pursuit)) {
         if (mBoidManager->data_hash(BoidManagerNode::Pursuit) != mPursuitTargetHash) {
             mPursuitTargetHash = mBoidManager->data_hash(BoidManagerNode::Pursuit);
-            mPursuitTargetV    = Node::cast_to<BoidSprite2D>(mBoidManager->get_pursuit_target(this, 1000));
+            mPursuitTargetV    = Node::cast_to<BoidSprite2D>(mBoidManager->get_pursuit_target(this, 10000));
         }
         if (mPursuitTargetV != nullptr) {
             steering_force += _pursuit(*mPursuitTargetV) * mPursuitWeight;
@@ -125,7 +128,7 @@ auto BoidSprite2D::_apply_rules() -> void {
     if (_check_behavior_flag(Evade)) {
         if (mBoidManager->data_hash(BoidManagerNode::Evade) != mEvadeTargetHash) {
             mEvadeTargetHash = mBoidManager->data_hash(BoidManagerNode::Evade);
-            mEvadeTargetV    = Node::cast_to<BoidSprite2D>(mBoidManager->get_evade_target(this, 1000));
+            mEvadeTargetV    = Node::cast_to<BoidSprite2D>(mBoidManager->get_evade_target(this, mEvadeRadius));
         }
         if (mEvadeTargetV != nullptr) {
             steering_force += _evade(*mEvadeTargetV) * mEvadeWeight;
