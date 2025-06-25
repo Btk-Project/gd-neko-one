@@ -1,399 +1,448 @@
-[gd_scene load_steps=2 format=3 uid="uid://croqie4oetykl"]
+[gd_scene load_steps=3 format=3 uid="uid://croqie4oetykl"]
 
 [ext_resource type="Texture2D" uid="uid://kpbr8vhgw0s8" path="res://resources/Winter_Birds.png" id="1_xwhhh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_een74"]
 
 [node name="Node2D" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-342.0]
 
 [node name="BoidManagerNode" type="BoidManagerNode" parent="."]
 
-[node name="BoidSprite2D6" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-1.59091, 0.11434)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
+[node name="BoidClusterNode" type="BoidClusterNode" parent="BoidManagerNode"]
+base_separationRadius = 30.0
+base_alignmentRadius = 40.0
+base_cohesionRadius = 60.0
 advance_seekTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
 advance_fleeFromPredator = true
-advance_fleeFromPredatorDistance = 50.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(8.59547, 99.5742)
-rotation = 1.49905
+system_gameTimeFrameRate = 20.0
+system_isDebugDraw = true
+
+[node name="BoidSprite2D23" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.0394482, 0.478408)
+boidType = 1
+position = Vector2(653.341, 303.548)
+rotation = 0.082271
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 5
 
-[node name="BoidSprite2D5" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(0.44425, -1.03476)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(92.6582, 115.867)
-rotation = -2.73606
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D4" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.454868, -0.288055)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(73.468, 70.3214)
-rotation = 2.13532
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D3" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(0.0605668, -0.33559)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(83.333, 71.2918)
-rotation = -2.96304
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D2" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(0.935657, -0.564005)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(85.5723, 89.9743)
-rotation = -2.11326
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D9" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.466849, -0.510701)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(101.173, 108.173)
-rotation = 2.40102
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D8" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.256521, 0.881991)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_separationWeight = 0.5
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 5.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(83.8491, 91.3435)
-rotation = 0.283035
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D7" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(0.156393, -0.784974)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(84.7006, 101.951)
-rotation = -2.94493
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D10" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-1.46204, 0.395386)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(65.6841, 87.5599)
-rotation = 1.30668
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D11" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-1.19567, -1.81278)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(95.229, 98.1405)
-rotation = 2.55851
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D12" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.136032, 0.712162)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(75.1967, 82.39)
-rotation = 0.188739
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D13" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.963861, -0.538199)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_seekTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorDistance = 50.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(3.37572, 91.4907)
-rotation = 2.08005
+[node name="BoidSprite2D25" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.122123, 0.291991)
+boidType = 1
+position = Vector2(633.223, 272.153)
+rotation = -0.396134
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 5
 
-[node name="BoidSprite2D14" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.0858058, -0.806761)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(61.9775, 70.138)
-rotation = 3.03563
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 2
-
-[node name="BoidSprite2D15" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.605496, -0.275457)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_seekTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorDistance = 50.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(10.0871, 109.169)
-rotation = 1.99774
+[node name="BoidSprite2D26" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.872632, 0.179139)
+boidType = 1
+position = Vector2(664.029, 240.218)
+rotation = -1.36832
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 5
 
-[node name="BoidSprite2D16" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-2.45713, 1.50798)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
+[node name="BoidSprite2D27" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.107298, -0.821502)
+boidType = 1
+position = Vector2(580.297, 227.077)
+rotation = 3.01172
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D29" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.0660717, -0.154523)
+boidType = 1
+position = Vector2(547.628, 232.165)
+rotation = 2.73753
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D30" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.0731766, 0.122095)
+boidType = 1
+position = Vector2(675.373, 246.746)
+rotation = -0.539935
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D32" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.529103, 0.0362422)
+boidType = 1
+position = Vector2(662.908, 270.514)
+rotation = -1.50241
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D22" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.466146, -0.250818)
+boidType = 1
+position = Vector2(651.754, 195.337)
+rotation = 2.06443
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D28" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.134948, 0.473518)
+boidType = 1
+position = Vector2(592.02, 270.011)
+rotation = 0.27763
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D34" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.256236, -0.553126)
+boidType = 1
+position = Vector2(640.372, 222.497)
+rotation = 2.70777
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D13" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.281949, -0.197129)
+boidType = 1
+position = Vector2(609.116, 221.295)
+rotation = -2.18096
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D15" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.155294, -0.793438)
+boidType = 1
+position = Vector2(618.31, 190.175)
+rotation = 2.94831
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D6" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.0811975, 0.0929184)
+boidType = 1
+position = Vector2(561.957, 288.908)
+rotation = 0.718183
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D19" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.426534, -0.225198)
+boidType = 1
+position = Vector2(707.888, 227.427)
+rotation = -2.05657
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D20" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.0179741, 0.0720373)
+boidType = 1
+position = Vector2(660.486, 257.958)
+rotation = -0.244519
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D18" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(0.0274336, -1.00659)
+boidType = 1
+position = Vector2(638.813, 224.312)
+rotation = -3.11435
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D24" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.710362, -0.247115)
+boidType = 1
+position = Vector2(677.505, 209.335)
+rotation = 1.90557
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D31" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.00138431, -0.124583)
+boidType = 1
+position = Vector2(687.609, 265.208)
+rotation = 3.13048
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D33" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.521632, 0.0760664)
+boidType = 1
+position = Vector2(644.626, 317.101)
+rotation = 1.42599
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D35" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.329274, -0.325272)
+boidType = 1
+position = Vector2(668.776, 242.675)
+rotation = 2.35008
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidSprite2D21" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode"]
+velocity = Vector2(-0.778362, 0.466427)
+boidType = 1
+position = Vector2(616.55, 253.668)
+rotation = 1.03093
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="BoidClusterNode2" type="BoidClusterNode" parent="BoidManagerNode"]
 advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
+advance_arriveWeight = 1.3
 advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(95.5388, 70.0858)
-rotation = 1.02035
+system_gameTimeFrameRate = 20.0
+system_isDebugDraw = true
+
+[node name="BoidSprite2D5" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.439452, -1.24381)
+boidType = 1
+position = Vector2(194.855, 371.513)
+rotation = 2.80197
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 2
 
-[node name="BoidSprite2D17" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(0.268927, -3.88154)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(87.2312, 117.838)
-rotation = -3.07242
+[node name="BoidSprite2D4" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.308323, 0.398065)
+boidType = 1
+position = Vector2(262.882, 408.889)
+rotation = 0.659032
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 2
 
-[node name="BoidSprite2D" type="BoidSprite2D" parent="BoidManagerNode"]
-velocity = Vector2(-0.652221, -0.505476)
-base_maxSpeed = 10.0
-base_maxForce = 0.5
-base_separationRadius = 10.0
-base_alignmentRadius = 20.0
-base_cohesionRadius = 30.0
-advance_arriveTarget = true
-advance_wanderAngleChangeLimit = 0.1
-advance_fleeFromPredator = true
-advance_fleeFromPredatorWeight = 10.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(80.9375, 81.3093)
-rotation = 2.23011
+[node name="BoidSprite2D3" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.788659, 0.842786)
+boidType = 1
+position = Vector2(247.98, 430.804)
+rotation = 0.752233
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 2
+
+[node name="BoidSprite2D2" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(1.02424, -0.340715)
+boidType = 1
+position = Vector2(236.879, 392.353)
+rotation = -1.89193
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D8" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(0.0598415, -1.07704)
+boidType = 1
+position = Vector2(184.794, 341.489)
+rotation = -3.08609
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D7" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(0.344309, -0.750809)
+boidType = 1
+position = Vector2(204.404, 411.558)
+rotation = -2.71162
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D10" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.542465, -0.42692)
+boidType = 1
+position = Vector2(162.472, 375.784)
+rotation = 2.23756
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D11" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(0.35164, -0.233426)
+boidType = 1
+position = Vector2(231.837, 340.766)
+rotation = -2.15683
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D12" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.794184, 0.447981)
+boidType = 1
+position = Vector2(202.911, 291.842)
+rotation = 1.05721
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D14" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(1.24414, 2.09227)
+boidType = 1
+position = Vector2(291.513, 383.444)
+rotation = -0.536468
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D16" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(0.580201, 0.602566)
+boidType = 1
+position = Vector2(142.912, 269.395)
+rotation = -0.766492
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D17" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.942231, 0.16911)
+boidType = 1
+position = Vector2(214.1, 359.591)
+rotation = 1.39321
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(1.19245, -0.438796)
+boidType = 1
+position = Vector2(142.012, 325.949)
+rotation = -1.9234
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidSprite2D9" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode2"]
+velocity = Vector2(-0.482656, 0.0806644)
+boidType = 1
+position = Vector2(181.058, 319.788)
+rotation = 1.4052
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="BoidRigidBody2D" type="BoidRigidBody2D" parent="BoidManagerNode/BoidClusterNode2"]
+boidType = 1
+position = Vector2(177, 246)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoidManagerNode/BoidClusterNode2/BoidRigidBody2D"]
+shape = SubResource("CircleShape2D_een74")
 
 [node name="arrive_node" type="BoidSprite2D" parent="BoidManagerNode"]
-base_flocking = false
-system_gameTimeFrameRate = 5.0
-position = Vector2(74, 90)
-rotation = -3.14159
+boidType = 3
+position = Vector2(267, 283.04)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 2
 
-[node name="predatorBoid" type="BoidSprite2D" parent="BoidManagerNode"]
-base_flocking = false
-position = Vector2(1, -2)
-texture = ExtResource("1_xwhhh")
-hframes = 3
-vframes = 3
-frame = 1
-
 [node name="seek_node" type="BoidSprite2D" parent="BoidManagerNode"]
-base_maxSpeed = 10.0
-base_maxForce = 0.3
-base_flocking = false
-advance_wanderRadius = 3.0
-advance_wanderDistance = 3.0
-advance_wanderAngleChangeLimit = 1.0
-advance_fleeFromPredatorDistance = 50.0
-system_gameTimeFrameRate = 10.0
-position = Vector2(0.999996, 86)
+boidType = 2
+position = Vector2(659, 238)
 scale = Vector2(1.0625, 1)
 texture = ExtResource("1_xwhhh")
 hframes = 3
 vframes = 3
 frame = 5
+
+[node name="BoidClusterNode3" type="BoidClusterNode" parent="BoidManagerNode"]
+base_flocking = false
+system_gameTimeFrameRate = 5.0
+system_isDebugDraw = true
+
+[node name="predatorBoid" type="BoidSprite2D" parent="BoidManagerNode/BoidClusterNode3"]
+boidType = 9
+position = Vector2(308, 249)
+texture = ExtResource("1_xwhhh")
+hframes = 3
+vframes = 3
+frame = 1

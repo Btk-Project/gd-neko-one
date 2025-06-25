@@ -3,6 +3,7 @@ add_rules("mode.debug", "mode.release")
 set_version("0.0.1")
 
 set_languages("c++20")
+set_encodings("utf-8")
 
 add_requires("godotcpp4")
 if is_plat("windows") then

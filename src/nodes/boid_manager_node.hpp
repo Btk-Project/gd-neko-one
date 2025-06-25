@@ -1,31 +1,29 @@
 #pragma once
 
-#include <map>
-
 #include <godot_cpp/classes/node2d.hpp>
 
 #include "../algorithm/uniform_grid.hpp"
 
 namespace godot {
+enum class BoidType : uint32_t {
+    None      = 0,
+    Cluster   = 1 << 0, // 集群
+    Seek      = 1 << 1, // 寻找目标
+    Arrive    = 1 << 2, // 到达目标
+    Flee      = 1 << 3, // 逃离目標
+    Avoid     = 1 << 4, // 避让目标
+    Pursuit   = 1 << 5, // 追逐目标
+    Evade     = 1 << 6, // 躲避目标
+    Obstacle  = 1 << 7, // 障碍物
+    Predator  = 1 << 8, // 捕食者
+    Following = 1 << 9, // 跟随
+};
 class BoidManagerNode : public Node {
     GDCLASS(BoidManagerNode, Node)
     friend class Node;
 
 public:
-    enum DataType : uint32_t {
-        Cluster   = 1 << 0, // 集群
-        Seek      = 1 << 1, // 寻找目标
-        Arrive    = 1 << 2, // 到达目标
-        Flee      = 1 << 3, // 逃离目標
-        Avoid     = 1 << 4, // 避让目标
-        Pursuit   = 1 << 5, // 追逐目标
-        Evade     = 1 << 6, // 躲避目标
-        Obstacle  = 1 << 7, // 障碍物
-        Predator  = 1 << 8, // 捕食者
-        Following = 1 << 9, // 跟随
-    };
-
-    constexpr static std::array gDataTypePrefix = {
+    constexpr static std::array gBoidTypePrefix = {
         "cluster", "seek", "arrive", "flee", "avoid", "pursuit", "evade", "obstacle", "predator", "following",
     };
 
@@ -35,9 +33,9 @@ public:
 
     auto on_child_entered_tree(Node2D* node) -> void;
     auto on_child_exiting_tree(Node2D* node) -> void;
-    auto insert(Node2D* node, int boid_type) -> void;
+    auto insert(Node2D* node, BoidType boid_type) -> void;
     auto remove(Node2D* node) -> void;
-    auto data_hash(DataType type) -> uint64_t;
+    auto data_hash(BoidType type) -> uint64_t;
 
     // 获取指定节点需要寻找的目标位置
     auto get_seek_target(Node2D* self) -> Node2D*;
@@ -70,8 +68,8 @@ protected:
     void _ready() override;
     static auto _bind_methods() -> void;
     auto _on_position_changed(Object* node, Vector2 position) -> void;
-    auto _find_closest_node(Node2D* self, DataType type) -> Node2D*;
-    auto _find_closest_nodes(Node2D* self, DataType type, int distance) -> Array;
+    auto _find_closest_node(Node2D* self, BoidType type) -> Node2D*;
+    auto _find_closest_nodes(Node2D* self, BoidType type, int distance) -> Array;
 
 private:
     std::array<uint64_t, 33> mBoidDataHash = {0};
